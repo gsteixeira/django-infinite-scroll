@@ -1,0 +1,30 @@
+{% load i18n %}
+<html>
+    <head>
+        <title>Home page</title>
+        <style>
+            .item-box {
+                font-size: 10em;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1> This is a sample page </h1>
+        <p>
+            An infinite scroll should load below.
+            <br>
+            Scroll down to check if it's working...
+        </p>
+        <div class="item-box">
+            {% for item in feed %}
+                {{ item }}<br>
+            {% endfor %}
+        </div>
+        <p> here will render more and more data</p>
+        <div class="item-box">
+            {% include 'infscroll/scroll_box.html' %}
+        </div>
+        {% include 'infscroll/scroll.html' %}
+    </body>
+</html>

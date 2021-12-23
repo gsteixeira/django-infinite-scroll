@@ -1,0 +1,16 @@
+{% load i18n %}
+{% load static %}
+<div id="load_more" style="height: 100vh;"></div>
+<a href="javascript: scrollToTop();" title="{% trans 'jump to the top' %}">
+    <div id="scroll-jmp" class="scroll-jmp">
+        <img width="32" height="32" src="{% static 'imgs/uparrow.webp' %}" >
+    </div>
+</a>
+{% if has_older_posts %}
+    <a href="{{ rel_next }}"
+        id="a-load-more"
+        onclick="javascript: load_more();"
+        title="{% trans 'more' %}">
+        {% trans 'more' %}
+    </a>
+{% endif %}

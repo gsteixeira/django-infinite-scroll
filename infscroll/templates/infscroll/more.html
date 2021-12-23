@@ -1,0 +1,12 @@
+{% load i18n %}
+<html>
+    <head>
+        <meta name='robots' content='noindex, nofollow'>
+    </head>
+    <body>
+        {% for item in feed %}
+            {{ item }}
+        {% endfor %}
+        {% include 'infscroll/scroll_tags.html' %}
+    </body>
+</html>
