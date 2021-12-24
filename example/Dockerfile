@@ -9,15 +9,11 @@ RUN pip3 install Django==4.0 \
                  uwsgi==2.0.20 \
                  django-compressor==3.1
 
-COPY example/resources/uwsgi.ini /etc/
+COPY resources/uwsgi.ini /etc/
 
-ADD example/app/ /opt/example/
+ADD app/ /opt/example/
 
-# TEMP here
-ADD ./ /usr/src/infscroll/
-
-RUN cd /usr/src/infscroll/ && \
-    pip3 install -U .
+RUN pip3 install --no-deps django-infinite-scroll
 
 RUN cd /opt/example/ && \
     python3 manage.py collectstatic --no-input && \

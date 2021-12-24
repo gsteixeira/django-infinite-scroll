@@ -2,13 +2,13 @@ version: "3.9"
 services:
     infscroll_example:
         build:
-            context: ../
-            dockerfile: example/Dockerfile
+            context: .
+            dockerfile: Dockerfile
         volumes:
             - ./resources/uwsgi.ini:/etc/uwsgi.ini:ro
         ports:
             - "8000:8000"
-        image: infscroll_example:latest
+        image: infscroll_example:0.1.1
 
 
 

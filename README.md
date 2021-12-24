@@ -4,9 +4,9 @@ Add infinite scroll to any django app.
 ## Features
 
     - Allows to add infinite scroll to any page.
-    - Works with Django's Queryset and regular lists.
-    - Easy to install and set up.
+    - Works with Django's Queryset or any kind of lists.
     - Requires no aditional javascript framework.
+    - Easy to install and set up.
 
 ## Quicksetup
 
@@ -14,7 +14,7 @@ With docker compose:
 
 ``` bash
     git clone https://github.com/gsteixeira/django-infinite-scroll.git
-    cd django-infinite-scroll/example
+    cd django-infinite-scroll/example/
     docker-compose up
 ```
 
@@ -45,13 +45,11 @@ First, let's make a view that will load the dynamic content:
 
 ```python
     def more(request):
-        # This is the list that will be paginated
+        # This is the list that will be paginated.
         list_items = MyModel.objects.all()
-        # extra data to pass to the view (optional)
-        data = {'foo': 'bar'}
-        # Your template (optional)
-        template = 'more.html'
-        return more_feed(request, list_items, template, extra_data=data)
+        return more_items(request, list_items,
+                          # (optional) your custom template
+                          template='more.html')
 ```
 
 Add it to urls.py
@@ -66,15 +64,14 @@ Finally, Add to the view you want to show the infinite scroll:
     def my_view(request):
         # The list of items to be paginated. It can be any list of queryset.
         list_items = MyModel.objects.all()
-        # Get initial data and a first burst of paginated items to show
-        paginated = get_feed_pagination(request, list_items)
+        paginated = get_pagination(request, list_items)
+        # we must declare the url where it will load more stuff
         data = {
-            # we must declare the url where it will load more stuff
             'more_posts_url': reverse('more'),
             }
         # update with paginated info
         data.update(paginated)
-        return render(request, 'home.html', data)
+        return render(request, 'my_view.html', data)
 ```
 
 Now add to your template:

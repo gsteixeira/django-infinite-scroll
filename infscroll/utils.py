@@ -3,20 +3,11 @@ from django.conf import settings
 
 PAGINATION_STEPS = getattr(settings, 'PAGINATION_STEPS', 10)
 
-def num_only(value:any)->int:
-    """ extract non digits from a string and return integer """
-    value = str(value)
-    nlist = [num for num in value if num.isdigit()]
-    if nlist:
-        return int(''.join(nlist))
-    else:
-        return None
-
-def get_feed_pagination(request, feed:list,
-                        pagination_steps:int=PAGINATION_STEPS,
-                        minimum:int=0,
-                        page_canonica:int=None,
-                        shuf:bool=False) -> dict:
+def get_pagination(request, feed:list,
+                   pagination_steps:int=PAGINATION_STEPS,
+                   minimum:int=0,
+                   page_canonica:int=None,
+                   shuf:bool=False) -> dict:
     """ Prepare data to send html in order to keep a syncronized pagination
     """
     has_newer_posts = True
@@ -31,7 +22,7 @@ def get_feed_pagination(request, feed:list,
         page_canonica = int(page / pagination_steps)
     older_posts = page + pagination_steps
     newer_posts = page - pagination_steps
-    if page <= 0: # 
+    if page <= 0:
         newer_posts = 0
         page = 0
         has_newer_posts = False
@@ -41,7 +32,7 @@ def get_feed_pagination(request, feed:list,
         has_older_posts = False
         older_posts = 0
     should_load_more = (feed_count >= minimum)
-    if shuf or 'rnd' in request.GET.keys():
+    if shuf:
         feed = list(feed)
         shuffle(feed)
     data = {
@@ -57,3 +48,12 @@ def get_feed_pagination(request, feed:list,
         'newer_posts_canonica': int(newer_posts / pagination_steps),
         }
     return data
+
+def num_only(value:any)->int:
+    """ extract non digits from a string and return integer """
+    value = str(value)
+    nlist = [num for num in value if num.isdigit()]
+    if nlist:
+        return int(''.join(nlist))
+    else:
+        return None
