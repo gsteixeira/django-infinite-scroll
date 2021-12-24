@@ -24,7 +24,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-infinite-scroll',
-    version='0.1.1',
+    version='0.1.2',
     packages=find_packages(),
     include_package_data=True,
     license='GNU License',
@@ -41,7 +41,6 @@ setup(
         ],
     install_requires=[
         'Django>=3.2.10',
-        'django-compressor>=3.1',
         ],
     package_data={
         },

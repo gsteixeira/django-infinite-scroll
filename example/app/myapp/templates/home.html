@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load infinite_scroll %}
 <html>
     <head>
         <title>Home page</title>
@@ -23,8 +24,10 @@
         </div>
         <p> here will render more and more data</p>
         <div class="item-box">
-            {% include 'infscroll/scroll_box.html' %}
+            {% infinite_scroll_box %}
+            <!--{#% DEPRECATED include 'infscroll/scroll_box.html' %#}-->
         </div>
-        {% include 'infscroll/scroll.html' %}
+            {% set_infinite_scroll %}
+        <!-- {#% DEPRECATED include 'infscroll/scroll.html' %#}-->
     </body>
 </html>

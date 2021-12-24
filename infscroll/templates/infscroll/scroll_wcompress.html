@@ -1,0 +1,31 @@
+{% load compress %}
+{% load static %}
+<!-- infinite scrool -->
+{% if has_older_posts and more_posts_url %}
+    {% compress js %}
+        <script defer src="{% static 'js/scroll.js' %}"></script>
+    {% endcompress %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/scroll.css' %}">
+    {% endcompress %}
+    {% compress js inline %}
+    <script defer type="text/javascript">
+        window.more_url = "{{ more_posts_url }}";
+        window.prev_page = {{ newer_posts }};
+        window.extra_args = "{{ more_posts_url_args|default:'' }}"
+        {% if has_older_posts %}
+            window.next_page = {{ older_posts }};
+        {% else %}
+            window.next_page = 0;
+        {% endif %}
+        window.has_more = "{{ should_load_more }}";
+        window.current_pagination = {{ page }} + {{ older_posts }};
+        if (window.has_more == "True"){
+            window.addEventListener('load', function () {
+                load_more();
+            });
+        }
+        window.onscroll = scrollDown;
+    </script>
+    {% endcompress %}
+{% endif %}

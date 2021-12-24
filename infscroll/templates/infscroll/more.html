@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load infinite_scroll %}
 <html>
     <head>
         <meta name='robots' content='noindex, nofollow'>
@@ -7,6 +8,6 @@
         {% for item in feed %}
             {{ item }}
         {% endfor %}
-        {% include 'infscroll/scroll_tags.html' %}
+        {% infinite_scroll_tags %}
     </body>
 </html>

@@ -6,8 +6,7 @@ RUN apt-get update && \
     apt-get install -y python3 python3-pip
     
 RUN pip3 install Django==4.0 \
-                 uwsgi==2.0.20 \
-                 django-compressor==3.1
+                 uwsgi==2.0.20
 
 COPY resources/uwsgi.ini /etc/
 

@@ -34,11 +34,8 @@ Add to settings.py
 ```python
     INSTALLED_APPS = [
         # ...
-        'compressor',
         'infscroll',
     ]
-    # we use django-compressor so you need to set up the STATIC_ROOT
-    STATIC_ROOT = BASE_DIR / "static_root/"
 ```
 
 First, let's make a view that will load the dynamic content:
@@ -77,13 +74,14 @@ Finally, Add to the view you want to show the infinite scroll:
 Now add to your template:
 
 ```html
+    {% load infinite_scroll %}
     <html>
         <body>
             <p>Hello</p>
             <!-- The dynamically loaded items will show here -->
-            {% include 'infscroll/scroll_box.html' %}
-            <!-- This can go in the end of the template -->
-            {% include 'infscroll/scroll.html' %}
+            {% infinite_scroll_box %}
+            <!-- This can go in the end of the template. Will load css and js -->
+            {% set_infinite_scroll %}
         </body>
     </html>
 ```
@@ -95,10 +93,11 @@ Now go to the page of "my_view", and you should have infinite scroll!
 Here is an example:
 
 ```html
+    {% load infinite_scroll %}
     {% for item in feed %}
         {{ item }}
     {% endfor %}
-    {% include 'infscroll/scroll_tags.html' %}
+    {% infinite_scroll_tags %}
 ```
 Just add this *for loop* to iterate the list and include the scroll tags
 
@@ -111,4 +110,3 @@ Just add this *for loop* to iterate the list and include the scroll tags
 
     - python3
     - django
-    - django-compressor
