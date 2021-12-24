@@ -1,7 +1,7 @@
 from random import shuffle
 from django.conf import settings
 
-PAGINATION_STEPS = getattr(settings, 'PAGINATION_STEPS', 10)
+PAGINATION_STEPS = int(getattr(settings, 'PAGINATION_STEPS', 10))
 
 def get_pagination(request, feed:list,
                    pagination_steps:int=PAGINATION_STEPS,

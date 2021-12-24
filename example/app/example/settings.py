@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'compressor',
     'infscroll',
     'myapp',
 ]
@@ -125,4 +124,4 @@ STATIC_ROOT = BASE_DIR / "static_root/"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#PAGINATION_STEPS = os.environ('PAGINATION_STEPS', 20)
+PAGINATION_STEPS = os.environ.get('PAGINATION_STEPS', 10)

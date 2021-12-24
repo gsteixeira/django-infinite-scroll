@@ -4,6 +4,8 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+        environment:
+            - PAGINATION_STEPS=10
         volumes:
             - ./resources/uwsgi.ini:/etc/uwsgi.ini:ro
         ports:
