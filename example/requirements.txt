@@ -1,4 +1,0 @@
-Django==3.2.10
-uwsgi==2.0.20
-Pillow==8.4.0
-opencv-python==4.5.4.60
