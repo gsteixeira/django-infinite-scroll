@@ -28,7 +28,7 @@ class InfiniteScrollTestCase(TestCase):
         self.assertEqual(data['has_newer_posts'], False)
         self.assertEqual(data['has_older_posts'], True)
         self.assertEqual(data['should_load_more'], True)
-        self.assertEqual(data['page_canonica'], 0)
+        self.assertEqual(data['page_canonical'], 0)
         self.assertEqual(data['older_posts_canonica'], 1)
         self.assertEqual(data['newer_posts_canonica'], 0)
 
@@ -48,7 +48,7 @@ class InfiniteScrollTestCase(TestCase):
         self.assertEqual(data['has_newer_posts'], True)
         self.assertEqual(data['has_older_posts'], True)
         self.assertEqual(data['should_load_more'], True)
-        self.assertEqual(data['page_canonica'], 2)
+        self.assertEqual(data['page_canonical'], 2)
         self.assertEqual(data['older_posts_canonica'], 3)
         self.assertEqual(data['newer_posts_canonica'], 1)
 
@@ -58,7 +58,7 @@ class InfiniteScrollTestCase(TestCase):
         """
         request = FakeRequest()
         data = get_pagination(request, self.feed,
-                              page_canonica=2,
+                              page_canonical=2,
                               pagination_steps=10)
         self.assertEqual(len(data['feed']), 10)
         i = 20
@@ -71,7 +71,7 @@ class InfiniteScrollTestCase(TestCase):
         self.assertEqual(data['has_newer_posts'], True)
         self.assertEqual(data['has_older_posts'], True)
         self.assertEqual(data['should_load_more'], True)
-        self.assertEqual(data['page_canonica'], 2)
+        self.assertEqual(data['page_canonical'], 2)
         self.assertEqual(data['older_posts_canonica'], 3)
         self.assertEqual(data['newer_posts_canonica'], 1)
 
@@ -93,7 +93,7 @@ class InfiniteScrollTestCase(TestCase):
         self.assertEqual(data['has_newer_posts'], True)
         self.assertEqual(data['has_older_posts'], False)
         self.assertEqual(data['should_load_more'], True)
-        self.assertEqual(data['page_canonica'], 9)
+        self.assertEqual(data['page_canonical'], 9)
         self.assertEqual(data['older_posts_canonica'], 0)
         self.assertEqual(data['newer_posts_canonica'], 8)
 
@@ -115,7 +115,7 @@ class InfiniteScrollTestCase(TestCase):
         self.assertEqual(data['has_newer_posts'], True)
         self.assertEqual(data['has_older_posts'], False)
         self.assertEqual(data['should_load_more'], True)
-        self.assertEqual(data['page_canonica'], 9)
+        self.assertEqual(data['page_canonical'], 9)
         self.assertEqual(data['older_posts_canonica'], 0)
         self.assertEqual(data['newer_posts_canonica'], 8)
 
@@ -139,6 +139,22 @@ class InfiniteScrollTestCase(TestCase):
         self.assertEqual(len(data['feed']), 10)
         for item in data['feed']:
             assert item in self.feed[0:10]
+
+    def test_not_forever(self):
+        """ Test when we get to the end of our list, and the flag *forever* is
+        set to false.
+        """
+        request = FakeRequest({'page': '90'})
+        data = get_pagination(request, self.feed,
+                              pagination_steps=10,
+                              forever=False)
+        self.assertEqual(len(data['feed']), 10)
+        self.assertEqual(data['page'], 90)
+        self.assertEqual(data['older_posts'], 0)
+        self.assertEqual(data['newer_posts'], 80)
+        self.assertEqual(data['has_newer_posts'], True)
+        self.assertEqual(data['has_older_posts'], False)
+        self.assertEqual(data['should_load_more'], False)
 
     def test_view_more_items(self):
         """ test the view that loads more items """

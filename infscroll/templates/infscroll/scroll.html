@@ -1,22 +1,17 @@
 {% load static %}
+{% load infinite_scroll %}
 {% if has_older_posts and more_posts_url %}
-<link rel="stylesheet" href="{% static 'css/scroll.min.css' %}">
-<script async src="{% static 'js/scroll.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/scroll.min.css' %}?v{{ infscroll_version }}">
+<script src="{% static 'js/scroll.min.js' %}?v{{ infscroll_version }}"></script>
 <script async type="text/javascript">
-    window.more_url = "{{ more_posts_url }}";
-    window.prev_page = {{ newer_posts }};
-    window.extra_args = "{{ more_posts_url_args|default:'' }}"
-    {% if has_older_posts %}
-        window.next_page = {{ older_posts }};
-    {% else %}
-        window.next_page = 0;
-    {% endif %}
-    window.has_more = "{{ should_load_more }}";
-    window.current_pagination = {{ page }} + {{ older_posts }};
-    if (window.has_more == "True"){
-        window.addEventListener('load', function () {
-            load_more();
-        });
-    }
+    scroller.setUp("{{ more_posts_url }}", // more_url
+                    "{{ newer_posts }}", // prev_page
+                    "{{ older_posts }}", // next_page
+                    "{{ should_load_more }}", // has_more
+                    "{{ more_posts_url_args|default:'' }}" // extra_args
+                );
+    window.addEventListener('load', function () {
+        scroller.load_more();
+    });
 </script>
 {% endif %}
