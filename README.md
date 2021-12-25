@@ -41,6 +41,7 @@ Add to settings.py
 First, let's make a view that will load the dynamic content:
 
 ```python
+    from infscroll.views import more_items
     def more(request):
         # This is the list that will be paginated.
         list_items = MyModel.objects.all()
@@ -58,6 +59,7 @@ Add it to urls.py
 Finally, Add to the view you want to show the infinite scroll:
 
 ```python
+    from infscroll.utils import get_pagination
     def my_view(request):
         # The list of items to be paginated. It can be any list of queryset.
         list_items = MyModel.objects.all()
