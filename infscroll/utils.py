@@ -1,9 +1,12 @@
-from importlib.metadata import version
 from random import shuffle
 from django.conf import settings
+try: # python >=3.8
+    from importlib.metadata import version as get_version
+except: # python < 3.8
+    from pkg_resources import get_distribution as get_version
 
+INFSCROLL_VERSION = get_version('django-infinite-scroll')
 PAGINATION_STEPS = int(getattr(settings, 'PAGINATION_STEPS', 10))
-INFSCROLL_VERSION = version('django-infinite-scroll')
 
 def get_pagination(request, feed:list,
                    pagination_steps:int=PAGINATION_STEPS,
