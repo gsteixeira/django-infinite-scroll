@@ -1,7 +1,7 @@
 
 STATIC_DIR := infscroll/static
 
-default:
+default: static test
 	# build the package
 	python3 -m build && twine check dist/*
 
