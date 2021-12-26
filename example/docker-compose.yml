@@ -10,7 +10,7 @@ services:
             - ./resources/uwsgi.ini:/etc/uwsgi.ini:ro
         ports:
             - "8000:8000"
-        image: infscroll_example:0.1.6
+        image: infscroll_example:latest
 
 
 

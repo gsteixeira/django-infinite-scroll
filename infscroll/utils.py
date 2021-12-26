@@ -5,12 +5,13 @@ try: # python >=3.8
 except ModuleNotFoundError: # python < 3.8
     from pkg_resources import get_distribution as get_version
 
-INFSCROLL_VERSION = get_version('django-infinite-scroll')
+_VERSION = get_version('django-infinite-scroll')
 PAGINATION_STEPS = int(getattr(settings, 'PAGINATION_STEPS', 10))
+MINIMUN_ITEMS = int(getattr(settings, 'SCROLL_MINIMUN_ITEMS', 10))
 
 def get_pagination(request, feed:list,
                    pagination_steps:int=PAGINATION_STEPS,
-                   minimum:int=0,
+                   minimum:int=MINIMUN_ITEMS,
                    page_canonical:int=None,
                    shuf:bool=False,
                    forever:bool=True) -> dict:
@@ -62,7 +63,7 @@ def get_pagination(request, feed:list,
         'page_canonical': page_canonical,
         'older_posts_canonica': int(older_posts / pagination_steps),
         'newer_posts_canonica': int(newer_posts / pagination_steps),
-        'infscroll_version': INFSCROLL_VERSION,
+        'infscroll_version': _VERSION,
         }
     return data
 

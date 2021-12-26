@@ -4,6 +4,7 @@ Add infinite scroll to any django app.
 ## Features
 
     - Allows to add infinite scroll to any page.
+    - Easy pagination.
     - Works with Django's Queryset or any kind of lists.
     - Requires no aditional javascript framework.
     - Easy to install and set up.

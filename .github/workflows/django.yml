@@ -26,5 +26,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -U .
     - name: Run Tests
-      run: |
-        python example/app/manage.py test
+      run:
+        working-directory: example/app/ |
+            python manage.py test

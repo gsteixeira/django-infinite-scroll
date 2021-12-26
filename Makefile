@@ -1,9 +1,10 @@
 
 STATIC_DIR := infscroll/static
 
+
 default: static test
 	# build the package
-	python3 -m build && twine check dist/*
+	python -m build && twine check dist/*
 
 static: $(STATIC_DIR)/js/scroll.ts $(STATIC_DIR)/css/scroll.css
 	# compile .ts and compress js and css files
@@ -13,4 +14,5 @@ static: $(STATIC_DIR)/js/scroll.ts $(STATIC_DIR)/css/scroll.css
 	
 test:
 	# test it
-	python3 example/app/manage.py test
+	cd example/app/ ; \
+		python manage.py test infscroll
